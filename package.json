@@ -1,5 +1,10 @@
 {
+  "name": "JsonWebtokenHashCookie",
+  "version": "1.0.0",
   "main": "app.js",
+  "repository": "https://github.com/DaoHuyTuan/JsonWebtokenHashCookie.git",
+  "author": "Đào huy tuan <tuandh95@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
@@ -8,6 +13,11 @@
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "jsonwebtoken": "^7.4.2",
-    "pg": "^7.1.0"
+    "pg": "^7.1.0",
+    "webpack": "^3.5.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index"
   }
 }
