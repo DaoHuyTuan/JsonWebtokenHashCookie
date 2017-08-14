@@ -22,5 +22,32 @@ function queryDB(sql, arrayData) {
         });
     });
 }
+function getAllStudent(){
+    const sql = 'SELECT * FROM "Student"';
+    queryDB(sql)
+    .then(result => console.log(result.rows))
+    .catch(err => console.log(err.toString()));
+}
+//getAllStudent();
 
+// function queryDB(sql, cb) {
+//         pool.connect((err, client) => {
+//            if (err) return cb(err, null);
+//             client.query(sql, (errQuery, result) => {
+//                 if (errQuery) return cb(errQuery, null);
+//                 cb(null, result);
+//             });
+//         });
+//     }
+    // const sql = 'SELECT * FROM "Student"';
+    // queryDB(sql,(err,result) => {
+    //     if(err) return console.log(err.toString());
+    //     console.log(result.rows);
+    // })
+
+// queryDB('SELECT * FROM "Student"', (err, result) => {
+//      if (err) return console.log(err.toString());
+//      console.log(result.rows);
+//  });
+ 
 module.exports = queryDB;
