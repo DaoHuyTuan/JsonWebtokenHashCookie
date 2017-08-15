@@ -48,7 +48,14 @@ function updateStudent(id,email,password){
     .then(result => console.log("update thành công"))
     .catch(err => console.log(err.toString()));
 }
-//////////////test function ////////////////
+
+function deleteStudent(id){
+    const deleteSQL = 'DELETE FROM "Student" WHERE id = $1';
+    queryDB(deleteSQL,[id])
+    .then(result => console.log("delete thành công"))
+    .catch(err => console.log(err.toString()));
+}
+////////////// TEST FUNCTION ////////////////
 //getAllStudent();
 
 // getStudentById(2,(err,result) => {
@@ -58,7 +65,9 @@ function updateStudent(id,email,password){
 
 //insertStudent('tuandhminh@gmail.com','456');
 
-updateStudent(3,'miracle@gmail.com','miracle');
+//updateStudent(3,'miracle@gmail.com','miracle');
+
+//deleteStudent(2);
 ///////////////////////////////////////////
 
 
