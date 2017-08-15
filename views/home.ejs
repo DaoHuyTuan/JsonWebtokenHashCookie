@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PG</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+        <table>
+            <tr>
+                <td>No.</td>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Price</td>
+                <td>Image</td>
+                <td>Video</td>
+                <td>Modify</td>
+            </tr>
+            <% mang.forEach(e => { %>
+                <tr>
+                    <td><%= e.id %></td>
+                    <td><%= e.name %></td>
+                    <td><p><%= e.description %></p></td>
+                    <td><%= e.price %></td>
+                    <td><%= e.image %></td>
+                    <td><p><%= e.video %></p></td>
+                    <td>
+                        <a href="/remove/<%= e.id %>" onclick="return confirm('Are you sure?')">Remove</a>
+                        <br>
+                        <a href="/update/<%= e.id %>">Update</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </table>
+    </body>
+</html> 

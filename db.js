@@ -35,11 +35,18 @@ function getStudentById(id){
     .catch(err => console.log(err.toString()));    
 }
 function insertStudent(email,password){
-    const insertSQL = `INSERT INTO "Student"(email, password) VALUES ($1,$2)`;
+    const insertSQL = `INSERT INTO "Student" (email, password) VALUES ($1,$2)`;
     queryDB(insertSQL,[email,password]) 
         .then(result => console.log("insert thành công"))
         .catch(err => console.log(err.toString()));
     
+}
+
+function updateStudent(id,email,password){
+    const updateSQL = 'UPDATE "Student" SET  email=$2, password = $3 WHERE id =$1';
+    queryDB(updateSQL,[id,email,password])
+    .then(result => console.log("update thành công"))
+    .catch(err => console.log(err.toString()));
 }
 //////////////test function ////////////////
 //getAllStudent();
@@ -51,6 +58,7 @@ function insertStudent(email,password){
 
 //insertStudent('tuandhminh@gmail.com','456');
 
+updateStudent(3,'miracle@gmail.com','miracle');
 ///////////////////////////////////////////
 
 

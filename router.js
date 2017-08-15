@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
-
+const User = require('./User');
 app.set('view engine','ejs');
 app.set('views','./views');
 app.use(express.static('public'));
 
 app.get('/',(req,res) => {
-    res.send('hello');
+    
+    res.render('hello');
 });
 
 app.get('/signin',(req,res) => {
