@@ -28,7 +28,31 @@ function getAllStudent(){
     .then(result => console.log(result.rows))
     .catch(err => console.log(err.toString()));
 }
+function getStudentById(id){
+    const sql = 'SELECT * FROM "Student" WHERE id = $1';
+    queryDB(sql,[id])
+    .then(result => console.log(result.rows))
+    .catch(err => console.log(err.toString()));    
+}
+function insertStudent(email,password){
+    const insertSQL = `INSERT INTO "Student"(email, password) VALUES ($1,$2)`;
+    queryDB(insertSQL,[email,password]) 
+        .then(result => console.log("insert thành công"))
+        .catch(err => console.log(err.toString()));
+    
+}
+//////////////test function ////////////////
 //getAllStudent();
+
+// getStudentById(2,(err,result) => {
+//     if(err) return console.log(err.toString());
+//     console.log(result);
+// });
+
+//insertStudent('tuandhminh@gmail.com','456');
+
+///////////////////////////////////////////
+
 
 // function queryDB(sql, cb) {
 //         pool.connect((err, client) => {
