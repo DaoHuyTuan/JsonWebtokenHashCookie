@@ -4,11 +4,23 @@ class User {
         this.email    = email;
         this.password = password;
     }
-    static getAllStudent(){
-        const sql = 'SELECT * FROM "Student"';
-        queryDB(sql)
+    // static getAllStudent(cb){
+    //     const sql = 'SELECT * FROM "Student"';
+    //     queryDB(sql,[],(err,data) => {
+    //         if(err) return cb(err);
+    //         cb(null,data.rows)
+    //     })
+    //     // queryDB('SELECT * FROM "Student"', [], (err, result) => {
+    //     //     if (err) return cb(err);
+    //     //     cb(null, result.rows);
+    //     // });
+    //     .then(result => console.log(result.rows));   
+    // }
+    static getAllProduct(cb) {
+        queryDB('SELECT * FROM "Student"')
         .then(result => console.log(result.rows))
-        .catch(err => console.log(err.toString()));
+        .catch(err => console.log(err));
+            
     }
     static getStudentById(id){
         const sql = 'SELECT * FROM "Student" WHERE id = $1';
@@ -41,5 +53,9 @@ class User {
 
 //User.deleteStudent(3);
 //User.insertStudent('invoker@gmail.com','invoker');
+// User.getAllStudent((err,data) => {
+//     if (err) return cb(err);
+//     cb(null, console.log(result.rows));
+// })
 module.exports = User;
 

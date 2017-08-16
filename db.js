@@ -10,15 +10,24 @@ const pool = new pg.Pool({
     user: 'postgres'
 });
 
-function queryDB(sql, arrayData) {
-    return new Promise((resolve, reject) => {
-        pool.connect((err, client, done) => {
-            if (err) return reject(err);
-            client.query(sql, arrayData, (errQuery, result) => {
-                done();
-                if (errQuery) return reject(errQuery);
-                resolve(result);
-            });
+// function queryDB(sql, arrayData) {
+//     return new Promise((resolve, reject) => {
+//         pool.connect((err, client, done) => {
+//             if (err) return reject(err);
+//             client.query(sql, arrayData, (errQuery, result) => {
+//                 done();
+//                 if (errQuery) return reject(errQuery);
+//                 resolve(result);
+//             });
+//         });
+//     });
+// }
+function queryDB(sql, cb) {
+    pool.connect((err, client) => {
+        if (err) return cb(err, null);
+        client.query(sql, (errQuery, result) => {
+            if (errQuery) return cb(errQuery, null);
+            cb(null, result);
         });
     });
 }
@@ -36,6 +45,11 @@ function queryDB(sql, arrayData) {
 //updateStudent(3,'miracle@gmail.com','miracle');
 
 //deleteStudent(2);
+
+// queryDB('SELECT * FROM "Student"', (err, result) => {
+//     if (err) return console.log(err.toString());
+//     console.log(result.rows);
+// });
 ///////////////////////////////////////////
 
 
