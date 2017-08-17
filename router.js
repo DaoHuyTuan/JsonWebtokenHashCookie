@@ -31,12 +31,27 @@ app.get('/signup',(req,res) => {
 app.post('/signup',parser,async (req,res) => {
     const {email,password} = req.body;
     const user = new User(email,password);
-    await user.insertStudent()
+    await user.signUp()
     .then(() => res.send("dang ky thanh cong"))
     .catch(() => res.send("email da ton tai"));
 });
 
-
+app.post('/signin',parser , async (req,res) => {
+    const {email,password} = req.body;
+    const signInUser = new User(email,password);
+    
+    
+    // .then(result => res.send("dang nhap thanh cong"))
+    // .catch(err => res.send("dang nhap that bai"));
+    try {
+        const user = await signInUser.signIn()
+        res.send("đăng nhập thành công");
+    } catch (error) {
+        //res.send("dang nhap that bai" + " " +error.toString());
+        res.render('error',{error:error});
+    }
+   
+})
 
 
 module.exports = app;

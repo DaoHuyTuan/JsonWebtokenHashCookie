@@ -28,10 +28,7 @@ class User {
         .then(result => console.log(result.rows))
         .catch(err => console.log(err.toString()));    
     }
-    async insertStudent(email,password){
-        const insertSQL = `INSERT INTO "Student" (email, password) VALUES ($1,$2)`;
-        return await queryDB(insertSQL,[this.email,this.password]);     
-    }
+   
     
     static updateStudent(id,email,password){
         const updateSQL = 'UPDATE "Student" SET  email=$2, password = $3 WHERE id =$1';
@@ -46,7 +43,23 @@ class User {
         .then(result => console.log("delete thành công"))
         .catch(err => console.log(err.toString()));
     }
-    
+
+    async signUp(){
+        const insertSQL = `INSERT INTO "Student" (email, password) VALUES ($1,$2)`;
+        return await queryDB(insertSQL,[this.email,this.password]);     
+    }
+    async signIn(){
+        const sql = 'SELECT * FROM "Student" WHERE email = $1';
+        const result = await queryDB(sql,[this.email]);
+        
+        if(!result.rows[0]) throw new Error("email ko ton tai");//throw new Error("email ko tồn tại");
+        const hashpassword = result.rows[0].password; 
+        
+        if(hashpassword != this.password) throw new Error("sai mat khau");
+        return true;
+    }
+
+
 }
 
 //User.deleteStudent(3);
