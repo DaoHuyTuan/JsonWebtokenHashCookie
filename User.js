@@ -17,10 +17,10 @@ class User {
     //     .then(result => console.log(result.rows));   
     // }
     static getAllProduct(cb) {
-        queryDB('SELECT * FROM "Student"')
-        .then(result => console.log(result.rows))
-        .catch(err => console.log(err));
-            
+        queryDB('SELECT * FROM "Student"', [], (err, result) => {
+            if (err) return cb(err);
+            cb(null, result.rows);
+        });
     }
     static getStudentById(id){
         const sql = 'SELECT * FROM "Student" WHERE id = $1';
@@ -28,12 +28,9 @@ class User {
         .then(result => console.log(result.rows))
         .catch(err => console.log(err.toString()));    
     }
-    static insertStudent(email,password){
+    async insertStudent(email,password){
         const insertSQL = `INSERT INTO "Student" (email, password) VALUES ($1,$2)`;
-        queryDB(insertSQL,[email,password]) 
-            .then(result => console.log("insert thành công"))
-            .catch(err => console.log(err.toString()));
-        
+        return await queryDB(insertSQL,[this.email,this.password]);     
     }
     
     static updateStudent(id,email,password){
@@ -49,6 +46,7 @@ class User {
         .then(result => console.log("delete thành công"))
         .catch(err => console.log(err.toString()));
     }
+    
 }
 
 //User.deleteStudent(3);
