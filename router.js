@@ -31,9 +31,9 @@ app.get('/signup',(req,res) => {
 app.post('/signup',parser,async (req,res) => {
     const {email,password} = req.body;
     const user = new User(email,password);
-    await user.signUp()
+     user.signUp()
     .then(() => res.send("dang ky thanh cong"))
-    .catch(() => res.send("email da ton tai"));
+    .catch((error) => res.send("email da ton tai" + error));
 });
 
 app.post('/signin',parser , async (req,res) => {

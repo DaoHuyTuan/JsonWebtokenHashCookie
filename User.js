@@ -1,4 +1,5 @@
 const queryDB = require('./db');
+const {hash,compare} = require('bcrypt');
 class User {
     constructor(email ,password){
         this.email    = email;
@@ -46,20 +47,18 @@ class User {
 
     async signUp(){
         const insertSQL = `INSERT INTO "Student" (email, password) VALUES ($1,$2)`;
-        return await queryDB(insertSQL,[this.email,this.password]);     
+        const hashpassword = await hash(this.password,8);
+        return await queryDB(insertSQL,[this.email,hashpassword]);     
     }
     async signIn(){
         const sql = 'SELECT * FROM "Student" WHERE email = $1';
-        const result = await queryDB(sql,[this.email]);
-        
+        const result = await queryDB(sql,[this.email]);       
         if(!result.rows[0]) throw new Error("email ko ton tai");//throw new Error("email ko tồn tại");
         const hashpassword = result.rows[0].password; 
-        
-        if(hashpassword != this.password) throw new Error("sai mat khau");
+        const isValid = await compare(this.password,hashpassword);
+        if(!isValid) throw new Error("sai mat khau");
         return true;
     }
-
-
 }
 
 //User.deleteStudent(3);
